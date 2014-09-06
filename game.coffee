@@ -5,19 +5,19 @@ class Game
     @gameObjects = []
     @powerUps = []
 
-    @left = new Player @, 'left'
-    @right = new Player @, 'right'
+    other_side = if player_side == 'left' then 'right' else 'left'
+    @player = new Player @, player_side
+    if @singleplayer
+      @opponent = new PerfectAI @, other_side
+    else
+      @opponent = new Player @, other_side
 
     if player_side == 'left'
-      @player = @left
-      @opponent = @right
+      @left = @player
+      @right = @opponent
     else if player_side == 'right'
-      @player = @right
-      @opponent = @left
-
-    if @singleplayer
-      @opponent.destroy()
-      @opponent = new PerfectAI @, @opponent.side
+      @right = @player
+      @left = @opponent
 
     new Ball @
     new Portal @
