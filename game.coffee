@@ -42,9 +42,12 @@ class Game
     self.timeout = setTimeout self.loop, 30, self
 
   end: ->
-    clearTimeout self.timeout
-    gobj.destroy() for gobj in @gameObjects
-    @cleanup()
+    if @singleplayer
+      new Ball @
+    else
+      clearTimeout self.timeout
+      gobj.destroy() for gobj in @gameObjects
+      @cleanup()
 
   cleanup: ->
     i = 0

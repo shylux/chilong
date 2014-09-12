@@ -8,10 +8,11 @@ class Ball extends GameObject
     $('body').prepend(e)
     super game, e
     @_height = .02
+    @resize()
     @_left = .4
     @_top = .4
-    @speedx = -.01
-    @speedy = .008
+    @speedx = .01
+    @speedy = .004
     @lastTouch = undefined
 
   resize: ->
