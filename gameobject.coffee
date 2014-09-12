@@ -28,6 +28,9 @@ class GameObject
 		@_width
 	height: ->
 		@_height
+	# middle Vertical
+	middle: ->
+		(@top() + @bottom()) / 2
 
 
 	doesCollide: (gobj) ->

@@ -5,6 +5,7 @@ class PowerUp extends GameObject
     @_height = .1
     @_left = 0.8 * Math.random() + 0.1
     @_top = 0.8 * Math.random() + 0.1
+    @resize()
     @applyPosition()
 
   activate: (ball) ->

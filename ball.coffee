@@ -33,8 +33,8 @@ class Ball extends GameObject
     @handleCollision (gobj) ->
       if gobj instanceof Player
         gobj.bounce self
-      # if gobj instanceof PowerUp
-      #   gobj.activate self
+      if gobj instanceof PowerUp
+        gobj.activate self
 
     @_top = @top() + @speedy
     @_left = @left() + @speedx

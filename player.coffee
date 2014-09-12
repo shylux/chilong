@@ -3,13 +3,16 @@ class Player extends GameObject
   @max_bounce_angle = .02
 
   constructor: (game, @side) ->
-    @bounce_direction = if @side == 'left' then 1 else -1
+    @bounce_direction = if @isLeft() then 1 else -1
     e = $('<div class="bar '+@side+'"></div>')
     $('body').prepend(e)
     super game, e
     @_width = .03
     @_height = .15
-    @_left = if @side == 'left' then 0 else Game.width - @width()
+    @_left = if @isLeft() then 0 else Game.width - @width()
+
+  isLeft: ->
+    (@side == 'left')
 
   enableControl: (socket) ->
     self = @
@@ -36,10 +39,12 @@ class Player extends GameObject
     ball.speedy += bounce_manipulation
 
     if $('body').hasClass('portalActive')
-      if @bounce_direction > 0
+      if @isLeft()
         ball._left = @game.right.left() - ball.width()
+        ball._top = @game.right.middle()
       else
         ball._left = @game.left.right()
+        ball._top = @game.left.middle()
       Portal.deactivate()
       new Portal(@game)
       return
