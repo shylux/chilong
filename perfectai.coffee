@@ -7,7 +7,7 @@ class PerfectAI extends Player
     @ai_process = setInterval ->
       ball = self.game.first(Ball)
       if ball
-        ball_pos = ball.bounds().top
-        my_pos = ball_pos - self.e.height() / 2
-        self.e.css 'top', my_pos
+        ball_pos = ball.top()
+        self._top = ball_pos - self.height() / 2
+        self.applyPosition()
     , 16

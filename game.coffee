@@ -1,7 +1,11 @@
 # Handles game setup and loops
 class Game
+  @height = 1.0
+  @width = 1.5
 
   constructor: (@singleplayer, player_side) ->
+    self = @
+
     @gameObjects = []
     @powerUps = []
 
@@ -23,7 +27,9 @@ class Game
     new Portal @
 
     $(window).resize ->
-      gobj.resize() for gobj in @gameObjects
+      Game.width = $(window).width() / $(window).height()
+      gobj.resize() for gobj in self.gameObjects
+    $(window).resize()
 
     @loop(@)
 

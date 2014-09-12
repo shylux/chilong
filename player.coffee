@@ -1,12 +1,15 @@
 class Player extends GameObject
 
-  @max_bounce_angle = 6
+  @max_bounce_angle = .02
 
   constructor: (game, @side) ->
     @bounce_direction = if @side == 'left' then 1 else -1
     e = $('<div class="bar '+@side+'"></div>')
     $('body').prepend(e)
     super game, e
+    @_width = .03
+    @_height = .15
+    @_left = if @side == 'left' then 0 else Game.width - @width()
 
   enableControl: (socket) ->
     self = @
@@ -14,21 +17,19 @@ class Player extends GameObject
       top = event.pageY - self.e.height() / 2
       top = Math.max(top, 0)
       top = Math.min(top, $(window).height() - self.e.height())
-      self.e.css 'top', top
+      self._top = top / $(window).height()
+      self.applyPosition()
       if socket
         socket.emit 'update', top / $(window).height()
 
   bounce: (ball) ->
-    bbounds = ball.bounds()
-    pbounds = @bounds()
-
-    ball_mid = bbounds.top + ball.e.height() / 2
-    player_quater = pbounds.top + @e.height() / 4
-    player_3quater = pbounds.top + @e.height() / 4 * 3
+    ball_mid = ball.top() + ball.height() / 2
+    player_quater = @top() + ball.height() / 4
+    player_3quater = @top() + @height() / 4 * 3
 
     # relative position on where the ball hits the player
     # 0 is top of player 1 is bottom
-    rel_impact = 1.0 / @e.height() * (ball_mid - pbounds.top)
+    rel_impact = 1.0 / @height() * (ball_mid - @top())
 
     bounce_manipulation = 2 * Player.max_bounce_angle * rel_impact - Player.max_bounce_angle
 
@@ -36,9 +37,9 @@ class Player extends GameObject
 
     if $('body').hasClass('portalActive')
       if @bounce_direction > 0
-        ball.e.css('left', @game.right.bounds().left - ball.e.width())
+        ball._left = @game.right.left() - ball.width()
       else
-        ball.e.css('left', @game.left.bounds().right)
+        ball._left = @game.left.right()
       Portal.deactivate()
       new Portal(@game)
       return
