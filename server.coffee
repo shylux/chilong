@@ -5,7 +5,7 @@ io = require('socket.io')(http)
 
 port = 8000
 
-class ServerGame
+class ServerGame extends Game
   constructor: (@left, @right) ->
     console.log "New Game!"
     @players = []

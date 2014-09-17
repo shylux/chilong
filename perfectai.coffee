@@ -11,3 +11,7 @@ class PerfectAI extends Player
         self._top = ball_pos - self.height() / 2
         self.applyPosition()
     , 16
+
+  destroy: ->
+    clearInterval @ai_process
+    super

@@ -9,10 +9,10 @@ $(->
   g = new Game singleplayer, 'right'
   g.player.enableControl()
   socket.on 'game start', (msg) ->
-    g.end()
-    g = new Game msg
+    g.end(true)
+    g = new Game false, msg
     g.player.enableControl socket
 
     socket.on 'update', (msg) ->
-      g.opponent.e.css 'top', msg * $(window).height()
+      g.opponent._top = msg
 )

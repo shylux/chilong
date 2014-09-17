@@ -2,6 +2,8 @@
 class GameObject
 
 	constructor: (@game, @e) ->
+		@id = Math.random()
+
 		@_left = 0
 		@_top = 0
 		@_width = 0

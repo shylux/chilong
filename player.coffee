@@ -23,7 +23,7 @@ class Player extends GameObject
       self._top = top / $(window).height()
       self.applyPosition()
       if socket
-        socket.emit 'update', top / $(window).height()
+        socket.emit 'update', @top()
 
   bounce: (ball) ->
     ball_mid = ball.top() + ball.height() / 2

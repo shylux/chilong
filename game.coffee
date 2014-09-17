@@ -6,7 +6,8 @@ class Game
   constructor: (@singleplayer, player_side) ->
     self = @
 
-    Game.width = $(window).width() / $(window).height()
+    if @singleplayer
+      Game.width = $(window).width() / $(window).height()
 
     @gameObjects = []
     @powerUps = []
@@ -41,8 +42,8 @@ class Game
       self.end()
     self.timeout = setTimeout self.loop, 30, self
 
-  end: ->
-    if @singleplayer
+  end: (force_end) ->
+    if @singleplayer and not force_end
       new Ball @
     else
       clearTimeout self.timeout
