@@ -115,7 +115,7 @@ function gameStart() {
     return;
   }
 
-  gameobj = $('#chilong');
+  gameobj = $('.chilong');
   ball = $('#ball');
   left = $('#left');
   right = $('#right');
