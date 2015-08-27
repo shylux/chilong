@@ -1,0 +1,39 @@
+.chilong {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  /** PONG **/ }
+  .chilong#scoreboard {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    width: 11em;
+    background-color: rgba(0, 0, 0, 0.2); }
+    .chilong#scoreboard #score {
+      float: right; }
+  .chilong #ball, .chilong .bar {
+    position: absolute;
+    background-color: white; }
+  .chilong #ball {
+    height: 2%;
+    width: 2%;
+    /* will be replace by height */
+    top: 50px;
+    left: 50px;
+    background-color: white; }
+  .chilong .bar {
+    width: 3%;
+    height: 15%;
+    top: 100px; }
+  .chilong #left {
+    left: 0; }
+  .chilong #right {
+    right: 0; }
+  .chilong.portal_active #left {
+    background-color: #50c0ee; }
+  .chilong.portal_active #right {
+    background-color: #e25d30; }
+  .chilong .powerup {
+    position: absolute;
+    height: 5%;
+    width: 5%;
+    /* will be replace by height */ }
