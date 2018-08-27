@@ -1,18 +1,18 @@
 /**** SCRIPT VARIABLES ****/
-var gameobj, rift, ball, left, right, top_bar, bottom_bar, portal;
-var gameTicker;
-var score = 190;
+let gameobj, rift, ball, left, right, top_bar, bottom_bar, portal, lastScore;
+let gameTicker;
+let score = 190;
 
-var currStage = 2;
-var stageTwo = 200;
-var stageThree = 500;
+let currStage = 2;
+let stageTwo = 200;
+let stageThree = 500;
 
 // pong
-var speedx = 10;
-var speedx_limit = speedx * 2;
-var speedx_accel = 1.2;
-var speedy = 4;
-var max_bounce_angle = 6; // max bounce angle (shift on y speed)
+let speedx = 10;
+let speedx_limit = speedx * 2;
+let speedx_accel = 1.2;
+let speedy = 4;
+let max_bounce_angle = 6; // max bounce angle (shift on y speed)
 
 
 /**** USEFUL FUNCTIONS ****/
@@ -35,22 +35,22 @@ if (typeof $ === 'undefined') {
   throw new Error("Chilong needs jquery!");
 }
 
-var script_path;
+let script_path;
 function getScriptPath() {
   if (script_path !== undefined) return script_path;
-  var scripts = document.getElementsByTagName('script');
-  var path = scripts[scripts.length-1].src.split('?')[0]; // remove any ?query
+  let scripts = document.getElementsByTagName('script');
+  let path = scripts[scripts.length-1].src.split('?')[0]; // remove any ?query
   script_path = path.split('/').slice(0, -1).join('/'); // remove last filename part of path
   return script_path;
 }
 getScriptPath();
 
-var head_html = `
+let head_html = `
   <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="$path/chilong.css">
   <script src="$path/jss.min.js"></script>
-`
-var body_html = `
+`;
+let body_html = `
 <div id="scoreboard" class="chilong">
   <span>Score:</span><span id="score">0</span>
 </div>
@@ -75,7 +75,7 @@ $('body').ready(function() {
 
 function onResize() {
   // While the page is stil being rendered the height of the objects is 0. So we retry until the object is actually displayed.
-  if (ball.height() == 0) setTimeout("onResize()", 5);
+  if (ball.height() === 0) setTimeout("onResize()", 5);
 
   ball.width(ball.height());
   rift.width(rift.height());
@@ -86,12 +86,12 @@ function registerEventHandler() {
 
   // Move the bars on both sides
   $(document).mousemove(function(event) {
-    if (currStage == 1) {
+    if (currStage === 1) {
     	// calculate the middle position for the boxes relative to the mouse
     	var l = event.pageY - left.height()/2;
     	var r = event.pageY - right.height()/2;
 
-      if (currStage == 1) {
+      if (currStage === 1) {
         if (l < 0) l = 0;
       	if (l + left.height() > $(window).height()) l = $(window).height()-left.height();
       	if (r < 0) r = 0;
@@ -99,7 +99,7 @@ function registerEventHandler() {
       }
       left.css('top', l);
     	right.css('top', r);
-    } else if (currStage == 2) {
+    } else if (currStage === 2) {
       var midY = $(window).height()/2;
       var midX = $(window).width()/2;
       var diffMidX = event.pageX - midX;
@@ -120,7 +120,7 @@ function registerEventHandler() {
 /**** GAME HELPER ****/
 /* Returns bounds of jq object with attr left, right, top, bottom */
 function bounds(obj) {
-	var re = obj.offset();
+	let re = obj.offset();
 	re.right = re.left + obj.width();
 	re.bottom = re.top + obj.height();
 	return re;
@@ -128,8 +128,8 @@ function bounds(obj) {
 
 /* Check if two jq objects collide */
 function collide(obj1, obj2) {
-	var p1 = bounds(obj1);
-	var p2 = bounds(obj2);
+	let p1 = bounds(obj1);
+	let p2 = bounds(obj2);
 	// top left corner
 	if (p1.left >= p2.left && p1.left <= p2.right && p1.top >= p2.top && p1.top <= p2.bottom) return true;
 	// bottom right corner
@@ -168,9 +168,9 @@ function endGame() {
 }
 
 function gameTick() {
-  if (currStage == 1)
+  if (currStage === 1)
     pongTick();
-  else if (currStage == 2)
+  else if (currStage === 2)
     stageTwoTick();
 }
 
@@ -184,8 +184,8 @@ function addScore(addAmount) {
   }
 }
 
-var riftState = false;
-var riftCounter = 0, riftCountNextHit = true;
+let riftState = false;
+let riftCounter = 0, riftCountNextHit = true;
 function activateRift() {
   rift.show();
   riftState = true;
@@ -195,17 +195,17 @@ function activateRift() {
 function riftHit() {
   if (!riftCountNextHit) return;
   riftCounter++;
-  $(rift.children()[riftCounter]).show()
+  $(rift.children()[riftCounter]).show();
   riftCountNextHit = false;
-  if (riftCounter == 5) loadStageTwo();
+  if (riftCounter === 5) loadStageTwo();
 }
 
 /* places an jq obj randomly on the screen (not at the edge) */
 function placePowerup(obj) {
-	var targetx = $(window).width()*0.8;
-	var targety = $(window).height()*0.8;
-	var newx = targetx * Math.random() + $(window).width()*0.1;
-	var newy = targety * Math.random() + $(window).height()*0.1;
+	let targetx = $(window).width()*0.8;
+	let targety = $(window).height()*0.8;
+	let newx = targetx * Math.random() + $(window).width()*0.1;
+	let newy = targety * Math.random() + $(window).height()*0.1;
 	obj.css('top', newy);
 	obj.css('left', newx);
 	obj.show();
@@ -215,7 +215,7 @@ function placePowerup(obj) {
 /**** PONG FUNCTIONS ****/
 function pongTick() {
   if (!ball.is(':visible')) endGame(); // ball went out of bounds
-  var pball = bounds(ball);
+  let pball = bounds(ball);
   // check collisions
   if (speedx > 0) {
     if (collide(ball, right)) bounce(pball, right);
@@ -242,25 +242,25 @@ function bounce(pball, bar) {
 
   addScore(10);
   riftCountNextHit = true;
-	var ball_mid = pball.top + ball.height()/2;
-	var pbar = bounds(bar);
+	let ball_mid = pball.top + ball.height()/2;
+	let pbar = bounds(bar);
 
 	// accelerate ball
 	if (Math.abs(speedx) < speedx_limit) speedx = speedx*speedx_accel;
 
 	// bounce angle
-	var relball = Math.abs(ball_mid - pbar.top); // ball mid can be outside bar
+	let relball = Math.abs(ball_mid - pbar.top); // ball mid can be outside bar
 	// black magic
-	var percbounce = (1.0/bar.height())*relball;
-	var bounce_manipulation = (max_bounce_angle*2)*percbounce-max_bounce_angle;
+	let percbounce = (1.0/bar.height())*relball;
+	let bounce_manipulation = (max_bounce_angle*2)*percbounce-max_bounce_angle;
 
 	speedy += bounce_manipulation;
 
 	// check portal
 	if (portalState) {
-		if (bar.attr('id') == 'left') {
+		if (bar.attr('id') === 'left') {
 			ball.css('left', bounds(right).left);
-		} else if (bar.attr('id') == 'right') {
+		} else if (bar.attr('id') === 'right') {
 			ball.css('left', bounds(left).right - ball.width());
 		}
 		deactivatePortal();
@@ -269,7 +269,7 @@ function bounce(pball, bar) {
   }
 }
 
-var portalState = false;
+let portalState = false;
 function activatePortal() {
   addScore(100);
 	portalState = true;
