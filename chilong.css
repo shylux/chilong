@@ -5,16 +5,17 @@
     -ms-transform: rotate(0deg);
     /* IE 9 */
     transform: rotate(0deg);
-    /* Firefox 16+, IE 10+, Opera */ }
-
+    /* Firefox 16+, IE 10+, Opera */
+  }
   100% {
     -webkit-transform: rotate(360deg);
     /* Chrome, Opera 15+, Safari 3.1+ */
     -ms-transform: rotate(360deg);
     /* IE 9 */
     transform: rotate(360deg);
-    /* Firefox 16+, IE 10+, Opera */ } }
-
+    /* Firefox 16+, IE 10+, Opera */
+  }
+}
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -22,143 +23,175 @@
     -ms-transform: rotate(0deg);
     /* IE 9 */
     transform: rotate(0deg);
-    /* Firefox 16+, IE 10+, Opera */ }
-
+    /* Firefox 16+, IE 10+, Opera */
+  }
   100% {
     -webkit-transform: rotate(360deg);
     /* Chrome, Opera 15+, Safari 3.1+ */
     -ms-transform: rotate(360deg);
     /* IE 9 */
     transform: rotate(360deg);
-    /* Firefox 16+, IE 10+, Opera */ } }
-
+    /* Firefox 16+, IE 10+, Opera */
+  }
+}
 .chilong {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   color: white;
   position: absolute;
-  /** PONG **/ }
-  .chilong.pane {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; }
-  .chilong#scoreboard {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    width: 11em;
-    background-color: rgba(0, 0, 0, 0.2); }
-    .chilong#scoreboard #score {
-      float: right; }
-  .chilong .rift {
-    position: absolute;
-    width: 20%;
-    /* will be replace by height */
-    height: 20%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); }
-    .chilong .rift div:nth-child(1) {
-      content: "";
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-      border: 3px solid transparent;
-      border-radius: 50%;
-      -webkit-animation: spin 0.8s linear infinite;
-      animation: spin 0.8s linear infinite;
-      animation-direction: normal;
-      border-top-color: #e74c3c; }
-    .chilong .rift div:nth-child(2) {
-      content: "";
-      position: absolute;
-      top: 7px;
-      left: 7px;
-      right: 7px;
-      bottom: 7px;
-      border: 3px solid transparent;
-      border-radius: 50%;
-      -webkit-animation: spin 1s linear infinite;
-      animation: spin 1s linear infinite;
-      animation-direction: reverse;
-      border-top-color: #f9c922; }
-    .chilong .rift div:nth-child(3) {
-      content: "";
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      border: 3px solid transparent;
-      border-radius: 50%;
-      -webkit-animation: spin 0.5s linear infinite;
-      animation: spin 0.5s linear infinite;
-      animation-direction: reverse;
-      border-top-color: #267a59; }
-    .chilong .rift div:nth-child(4) {
-      content: "";
-      position: absolute;
-      top: 21px;
-      left: 21px;
-      right: 21px;
-      bottom: 21px;
-      border: 3px solid transparent;
-      border-radius: 50%;
-      -webkit-animation: spin 1.2s linear infinite;
-      animation: spin 1.2s linear infinite;
-      animation-direction: normal;
-      border-top-color: #8a4129; }
-    .chilong .rift div:nth-child(5) {
-      content: "";
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      border: 3px solid transparent;
-      border-radius: 50%;
-      -webkit-animation: spin 0.2s linear infinite;
-      animation: spin 0.2s linear infinite;
-      animation-direction: reverse;
-      border-width: 10px;
-      border-top-color: white; }
-  .chilong #ball, .chilong .vbar, .chilong .hbar {
-    position: absolute;
-    background-color: white; }
-  .chilong #ball {
-    height: 2%;
-    width: 2%;
-    /* will be replace by height */
-    top: 50px;
-    left: 50px;
-    background-color: white; }
-  .chilong .vbar {
-    width: 3%;
-    height: 15%;
-    top: 100px; }
-  .chilong .hbar {
-    height: 3%;
-    width: 15%; }
-  .chilong #left {
-    left: 0; }
-  .chilong #right {
-    right: 0; }
-  .chilong #top {
-    top: 0; }
-  .chilong #bottom {
-    bottom: 0; }
-  .chilong.portal_active #left {
-    background-color: #50c0ee; }
-  .chilong.portal_active #right {
-    background-color: #e25d30; }
-  .chilong .powerup {
-    position: absolute;
-    height: 5%;
-    width: 5%;
-    /* will be replace by height */ }
+  /** PONG **/
+}
+.chilong.pane {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.chilong#scoreboard {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  width: 11em;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.chilong#scoreboard #score {
+  float: right;
+}
+.chilong .rift {
+  position: absolute;
+  width: 20%;
+  /* will be replace by height */
+  height: 20%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.chilong .rift div:nth-child(1) {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spin 0.8s linear infinite;
+  animation: spin 0.8s linear infinite;
+  animation-direction: normal;
+  border-top-color: #e74c3c;
+}
+.chilong .rift div:nth-child(2) {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  animation-direction: reverse;
+  border-top-color: #f9c922;
+}
+.chilong .rift div:nth-child(3) {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spin 0.5s linear infinite;
+  animation: spin 0.5s linear infinite;
+  animation-direction: reverse;
+  border-top-color: #267a59;
+}
+.chilong .rift div:nth-child(4) {
+  content: "";
+  position: absolute;
+  top: 21px;
+  left: 21px;
+  right: 21px;
+  bottom: 21px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spin 1.2s linear infinite;
+  animation: spin 1.2s linear infinite;
+  animation-direction: normal;
+  border-top-color: #8a4129;
+}
+.chilong .rift div:nth-child(5) {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spin 0.2s linear infinite;
+  animation: spin 0.2s linear infinite;
+  animation-direction: reverse;
+  border-width: 10px;
+  border-top-color: white;
+}
+.chilong #ball, .chilong .vbar, .chilong .hbar {
+  position: absolute;
+  background-color: white;
+}
+.chilong #ball {
+  height: 2%;
+  width: 2%;
+  /* will be replace by height */
+  top: 50px;
+  left: 50px;
+  background-color: white;
+}
+.chilong .vbar {
+  width: 3%;
+  height: 15%;
+  top: 100px;
+}
+.chilong .hbar {
+  display: none;
+  height: 3%;
+  width: 15%;
+}
+.chilong #left {
+  left: 0;
+}
+.chilong #right {
+  right: 0;
+}
+.chilong #top {
+  top: 0;
+}
+.chilong #bottom {
+  bottom: 0;
+}
+.chilong.portal_active #left {
+  background-color: #50c0ee;
+}
+.chilong.portal_active #right {
+  background-color: #e25d30;
+}
+.chilong .powerup {
+  position: absolute;
+  height: 5%;
+  width: 5%;
+  /* will be replace by height */
+}
+.chilong.stage2 .vbar {
+  height: 30%;
+}
+.chilong.stage2 .hbar {
+  display: block;
+  width: 30%;
+}
+
+/*# sourceMappingURL=chilong.css.map */

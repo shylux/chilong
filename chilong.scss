@@ -84,6 +84,7 @@
     top: 100px;
   }
   .hbar {
+    display: none;
     height: 3%;
     width: 15%;
   }
@@ -101,5 +102,15 @@
   	position: absolute;
   	height: 5%;
   	width: 5%; /* will be replace by height */
+  }
+
+  &.stage2 {
+    .vbar {
+      height: 30%;
+    }
+    .hbar {
+      display: block;
+      width: 30%;
+    }
   }
 }

@@ -3,15 +3,12 @@ let gameobj, rift, ball, left, right, top_bar, bottom_bar, portal, lastScore;
 let gameTicker;
 let score = 190;
 
-let currStage = 2;
+let currStage = 1;
 let stageTwo = 200;
-let stageThree = 500;
 
 // pong
-let speedx = 10;
-let speedx_limit = speedx * 2;
+let speedx, speedx_limit, speedy; // will be set according window width
 let speedx_accel = 1.2;
-let speedy = 4;
 let max_bounce_angle = 6; // max bounce angle (shift on y speed)
 
 
@@ -158,6 +155,11 @@ function gameStart() {
 
   registerEventHandler();
   $(window).resize();
+
+  speedx = $(window).width() / 100;
+  speedx_limit = speedx * 2;
+  speedy = $(window).height() / 200;
+
   gameTicker = setInterval('gameTick();', 30);
 }
 
@@ -180,13 +182,18 @@ function addScore(addAmount) {
   $('#score').text(score);
 
   if (lastScore < stageTwo && score >= stageTwo) {
-    activateRift();
+    activateStageTwo();
   }
 }
 
 let riftState = false;
 let riftCounter = 0, riftCountNextHit = true;
-function activateRift() {
+function activateStageTwo() {
+    $('.chilong').addClass('stage2');
+    currStage = 2;
+    top_bar.show();
+    bottom_bar.show();
+
   rift.show();
   riftState = true;
   riftCounter = 0;
