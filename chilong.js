@@ -39,7 +39,7 @@ function getScriptPath() {
 getScriptPath();
 
 let head_html = `
-  <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="$path/chilong.css">
   <script src="$path/jss.min.js"></script>
 `;
