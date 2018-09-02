@@ -1,5 +1,5 @@
 /**** SCRIPT VARIABLES ****/
-let gameobj, rift, ball, left, right, portal, lastScore;
+let gameobj, rift, ball, left, right, portal, plus, minus, lastScore;
 let gameTicker;
 let score = 0;
 
@@ -50,6 +50,8 @@ let body_html = `
   <div id="left" class="vbar"></div>
   <div id="right" class="vbar"></div>
   <img id="portal" class="powerup" src="$path/res/portal2.gif" alt="Portal Powerup">
+  <img id="plus" class="powerup" src="$path/res/plus.gif" alt="Plus Powerup">
+  <img id="minus" class="powerup" src="$path/res/minus.gif" alt="Minus Powerup">
   <div class="rift">
     <div class="spinner"></div>
     <div class="spinner"></div>
@@ -117,14 +119,11 @@ function bounds(obj) {
 }
 
 /* Check if two jq objects collide */
+// https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 function collide(obj1, obj2) {
 	let p1 = bounds(obj1);
 	let p2 = bounds(obj2);
-	// top left corner
-	if (p1.left >= p2.left && p1.left <= p2.right && p1.top >= p2.top && p1.top <= p2.bottom) return true;
-	// bottom right corner
-	if (p1.right >= p2.left && p1.right <= p2.right && p1.bottom >= p2.top && p1.bottom <= p2.bottom) return true;
-	return false;
+    return (p1.left < p2.right && p1.right > p2.left && p1.top < p2.bottom && p1.bottom > p2.top);
 }
 
 
@@ -142,7 +141,8 @@ function gameStart() {
   left = $('#left');
   right = $('#right');
   portal = $('#portal');
-  placePowerup(portal);
+  plus = $('#plus');
+  minus = $('#minus');
 
   registerEventHandler();
   $(window).resize();
@@ -150,6 +150,10 @@ function gameStart() {
   speedx = $(window).width() / 100;
   speedx_limit = speedx * 2;
   speedy = $(window).height() / 200;
+
+  placePowerup(portal);
+  placePowerup(plus);
+  placePowerup(minus);
 
   gameTicker = setInterval('gameTick();', 30);
 }
@@ -195,12 +199,20 @@ function riftHit() {
 
 /* places an jq obj randomly on the screen (not at the edge) */
 function placePowerup(obj) {
-	let targetx = $(window).width()*0.8;
-	let targety = $(window).height()*0.8;
-	let newx = targetx * Math.random() + $(window).width()*0.1;
-	let newy = targety * Math.random() + $(window).height()*0.1;
-	obj.css('top', newy);
-	obj.css('left', newx);
+    for (i = 0; i < 100; i++) {
+        let targetx = $(window).width() * 0.8;
+        let targety = $(window).height() * 0.8;
+        let newx = targetx * Math.random() + $(window).width() * 0.1;
+        let newy = targety * Math.random() + $(window).height() * 0.1;
+        obj.css('top', newy);
+        obj.css('left', newx);
+
+        if (!([rift, portal, plus, minus].some(function(other) {
+            if (obj === other) return false;
+            return collide(other, obj);
+        }))) break;
+    }
+
 	obj.show();
 }
 
