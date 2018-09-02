@@ -1,10 +1,7 @@
 /**** SCRIPT VARIABLES ****/
-let gameobj, rift, ball, left, right, top_bar, bottom_bar, portal, lastScore;
+let gameobj, rift, ball, left, right, portal, lastScore;
 let gameTicker;
-let score = 190;
-
-let currStage = 1;
-let stageTwo = 200;
+let score = 0;
 
 // pong
 let speedx, speedx_limit, speedy; // will be set according window width
@@ -55,8 +52,6 @@ let body_html = `
   <div id="ball"></div>
   <div id="left" class="vbar"></div>
   <div id="right" class="vbar"></div>
-  <div id="top" class="hbar"></div>
-  <div id="bottom" class="hbar"></div>
   <img id="portal" class="powerup" src="$path/res/portal2.gif" alt="Portal Powerup">
   <div class="rift"><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </div>
@@ -83,34 +78,17 @@ function registerEventHandler() {
 
   // Move the bars on both sides
   $(document).mousemove(function(event) {
-    if (currStage === 1) {
     	// calculate the middle position for the boxes relative to the mouse
     	var l = event.pageY - left.height()/2;
     	var r = event.pageY - right.height()/2;
 
-      if (currStage === 1) {
         if (l < 0) l = 0;
       	if (l + left.height() > $(window).height()) l = $(window).height()-left.height();
       	if (r < 0) r = 0;
       	if (r + right.height() > $(window).height()) r = $(window).height()-right.height();
-      }
+
       left.css('top', l);
-    	right.css('top', r);
-    } else if (currStage === 2) {
-      var midY = $(window).height()/2;
-      var midX = $(window).width()/2;
-      var diffMidX = event.pageX - midX;
-      var diffMidY = event.pageY - midY;
-      var funcSlope = diffMidY / diffMidX;
-      var leftY = midY + funcSlope * -midX;
-      var rightY = midY + funcSlope * midX;
-      var topX = -midY / funcSlope + midX;
-      var bottomX = midY / funcSlope + midX;
-      left.css('top', leftY - left.height()/2);
-      right.css('top', rightY - right.height()/2);
-      top_bar.css('left', topX - top_bar.width()/2);
-      bottom_bar.css('left', bottomX - bottom_bar.width()/2);
-    }
+      right.css('top', r);
   });
 }
 
@@ -148,8 +126,6 @@ function gameStart() {
   ball = $('#ball');
   left = $('#left');
   right = $('#right');
-  top_bar = $('#top');
-  bottom_bar = $('#bottom');
   portal = $('#portal');
   placePowerup(portal);
 
@@ -164,47 +140,30 @@ function gameStart() {
 }
 
 function endGame() {
-  jss.set('.chilong', {display: 'None'});
+  //jss.set('.chilong', {display: 'None'});
   setTimeout("$('#scoreboard').hide()", 5000);
   clearInterval(gameTicker);
 }
 
 function gameTick() {
-  if (currStage === 1)
     pongTick();
-  else if (currStage === 2)
-    stageTwoTick();
 }
 
 function addScore(addAmount) {
   lastScore = score;
   score += addAmount;
   $('#score').text(score);
-
-  if (lastScore < stageTwo && score >= stageTwo) {
-    activateStageTwo();
-  }
 }
 
 let riftState = false;
 let riftCounter = 0, riftCountNextHit = true;
-function activateStageTwo() {
-    $('.chilong').addClass('stage2');
-    currStage = 2;
-    top_bar.show();
-    bottom_bar.show();
 
-  rift.show();
-  riftState = true;
-  riftCounter = 0;
-  $(rift.children()[0]).show()
-}
 function riftHit() {
   if (!riftCountNextHit) return;
   riftCounter++;
   $(rift.children()[riftCounter]).show();
   riftCountNextHit = false;
-  if (riftCounter === 5) loadStageTwo();
+  if (riftCounter === 5) console.log('do something');
 }
 
 /* places an jq obj randomly on the screen (not at the edge) */
@@ -244,8 +203,6 @@ function bounce(pball, bar) {
   // make sure ball cant get stuck in bars
   if (bar === left && speedx > 0) return;
   if (bar === right && speedx < 0) return;
-  if (bar === top && speedy > 0) return;
-  if (bar === bottom && speedy < 0) return;
 
   addScore(10);
   riftCountNextHit = true;
@@ -287,18 +244,4 @@ function deactivatePortal() {
 	portalState = false;
 	gameobj.removeClass('portal_active');
 	placePowerup(portal);
-}
-
-/**** STAGE TWO ****/
-function loadStageTwo() {
-  console.log("Stage TWO");
-}
-
-function stageTwoTick() {
-  var pball = bounds(ball);
-  if (collide(ball, right)) bounce(pball, right);
-  if (collide(ball, left)) bounce(pball, left);
-  if (collide(ball, top_bar)) bounce(pball, top_bar);
-  if (collide(ball, bottom_bar)) bounce(pball, bottom_bar);
-  ball.offset({top: pball.top+speedy, left: pball.left+speedx});
 }

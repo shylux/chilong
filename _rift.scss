@@ -23,14 +23,14 @@
     }
 }
 
-@mixin spinner-border($padding, $time, $direction) {
+@mixin spinner-border($size, $padding, $time, $direction) {
   content: "";
   position: absolute;
   top: $padding;
   left: $padding;
   right: $padding;
   bottom: $padding;
-  border: 3px solid transparent;
+  border: $size solid transparent;
   border-radius: 50%;
 
   -webkit-animation: spin $time linear infinite;

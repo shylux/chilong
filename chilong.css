@@ -68,6 +68,13 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  border: 6px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 2px white;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+.chilong .rift div {
+  display: none;
 }
 .chilong .rift div:nth-child(1) {
   content: "";
@@ -76,66 +83,66 @@
   left: 0px;
   right: 0px;
   bottom: 0px;
-  border: 3px solid transparent;
+  border: 15px solid transparent;
   border-radius: 50%;
-  -webkit-animation: spin 0.8s linear infinite;
-  animation: spin 0.8s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
   animation-direction: normal;
-  border-top-color: #e74c3c;
+  border-top-color: #50c0ee;
 }
 .chilong .rift div:nth-child(2) {
   content: "";
   position: absolute;
-  top: 7px;
-  left: 7px;
-  right: 7px;
-  bottom: 7px;
-  border: 3px solid transparent;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 15px solid transparent;
   border-radius: 50%;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
   animation-direction: reverse;
-  border-top-color: #f9c922;
+  border-top-color: #e25d30;
 }
 .chilong .rift div:nth-child(3) {
   content: "";
   position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  border: 3px solid transparent;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  border: 20px solid transparent;
   border-radius: 50%;
   -webkit-animation: spin 0.5s linear infinite;
   animation: spin 0.5s linear infinite;
-  animation-direction: reverse;
-  border-top-color: #267a59;
+  animation-direction: normal;
+  border-top-color: black;
 }
 .chilong .rift div:nth-child(4) {
   content: "";
   position: absolute;
-  top: 21px;
-  left: 21px;
-  right: 21px;
-  bottom: 21px;
-  border: 3px solid transparent;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+  border: 20px solid transparent;
   border-radius: 50%;
-  -webkit-animation: spin 1.2s linear infinite;
-  animation: spin 1.2s linear infinite;
-  animation-direction: normal;
+  -webkit-animation: spin 0.25s linear infinite;
+  animation: spin 0.25s linear infinite;
+  animation-direction: reverse;
   border-top-color: #8a4129;
 }
 .chilong .rift div:nth-child(5) {
   content: "";
   position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 3px solid transparent;
+  top: 70px;
+  left: 70px;
+  right: 70px;
+  bottom: 70px;
+  border: 10px solid transparent;
   border-radius: 50%;
-  -webkit-animation: spin 0.2s linear infinite;
-  animation: spin 0.2s linear infinite;
+  -webkit-animation: spin 0.1s linear infinite;
+  animation: spin 0.1s linear infinite;
   animation-direction: reverse;
   border-width: 10px;
   border-top-color: white;
