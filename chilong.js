@@ -1,7 +1,7 @@
 /**** SCRIPT VARIABLES ****/
 let gameobj, rift, ball, left, right, portal, lastScore;
 let gameTicker;
-let score = 0;
+let score = 1234;
 
 // pong
 let speedx, speedx_limit, speedy; // will be set according window width
@@ -45,15 +45,22 @@ let head_html = `
   <script src="$path/jss.min.js"></script>
 `;
 let body_html = `
-<div id="scoreboard" class="chilong">
-  <span>Score:</span><span id="score">0</span>
-</div>
 <div class="chilong pane">
   <div id="ball"></div>
   <div id="left" class="vbar"></div>
   <div id="right" class="vbar"></div>
   <img id="portal" class="powerup" src="$path/res/portal2.gif" alt="Portal Powerup">
-  <div class="rift"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  <div class="rift">
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+    <div id="scoreboard">
+        <span>Score:</span>
+        <span id="score">0</span>
+    </div>
+  </div>
 </div>
 `;
 $('head').prepend(replaceAll(head_html, '$path', getScriptPath()));
@@ -155,15 +162,21 @@ function addScore(addAmount) {
   $('#score').text(score);
 }
 
-let riftState = false;
-let riftCounter = 0, riftCountNextHit = true;
-
+let riftCounter = -1, riftCountNextHit = true;
 function riftHit() {
   if (!riftCountNextHit) return;
   riftCounter++;
-  $(rift.children()[riftCounter]).show();
+  if (riftCounter < 5) {
+      // show blue spinner on first stage
+      $(rift.find('.spinner')[riftCounter]).show();
+  } else if (riftCounter < 10){
+      // show solid orange on second stage
+      $(rift.find('.spinner')[9-riftCounter]).addClass('activated');
+  } else {
+      console.log('do something');
+      $(rift.find('.spinner')).hide();
+  }
   riftCountNextHit = false;
-  if (riftCounter === 5) console.log('do something');
 }
 
 /* places an jq obj randomly on the screen (not at the edge) */
@@ -189,7 +202,7 @@ function pongTick() {
     if (collide(ball, left)) bounce(pball, left);
   }
   if (collide(ball, portal)) activatePortal();
-  if (riftState && collide(ball, rift)) riftHit();
+  if (collide(ball, rift)) riftHit();
   // update ball
   pball = bounds(ball);
   // check if out

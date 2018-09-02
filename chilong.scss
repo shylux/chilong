@@ -13,19 +13,6 @@
     overflow: hidden;
   }
 
-  &#scoreboard {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    width: 11em;
-    background-color: rgba(0, 0, 0, 0.2);
-
-    #score { float: right; }
-  }
-
   .rift {
     // display: none;
     position: absolute;
@@ -41,29 +28,42 @@
 
     background-color: rgba(255, 255, 255, .75);
 
+    #scoreboard {
+      display: block;
+      position: absolute;
+      width: 10.5em;
+      padding: 10px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      background-color: rgba(0, 0, 0, 0.3);
+
+      #score { float: right; }
+    }
+
     div {
-      display: none;
+      //display: none;
 
       &:nth-child(1) {
-        @include spinner-border(15px, 0px, 2s, normal);
-        border-top-color: #50c0ee;
+        @include spinner-border(16px, 0px, 2s, normal);
       }
       &:nth-child(2) {
-        @include spinner-border(15px, 15px, 1s, reverse);
-        border-top-color: #e25d30;
+        @include spinner-border(16px, 15px, 1s, reverse);
       }
       &:nth-child(3) {
-        @include spinner-border(20px, 30px, 0.5s, normal);
-        border-top-color: black;
+        @include spinner-border(21px, 30px, 0.5s, normal);
       }
       &:nth-child(4) {
-        @include spinner-border(20px, 50px, 0.25s, reverse);
-        border-top-color: rgb(138, 65, 41);
+        @include spinner-border(21px, 50px, 0.25s, reverse);
       }
       &:nth-child(5) {
-        @include spinner-border(10px, 70px, .1s, reverse);
-        border-width: 10px;
-        border-top-color: white;
+        @include spinner-border(11px, 70px, .1s, reverse);
+      }
+
+      &.activated {
+        border-color: #e25d30;
+        animation: none;
       }
     }
 
