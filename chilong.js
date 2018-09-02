@@ -1,7 +1,7 @@
 /**** SCRIPT VARIABLES ****/
 let gameobj, rift, ball, left, right, portal, lastScore;
 let gameTicker;
-let score = 1234;
+let score = 0;
 
 // pong
 let speedx, speedx_limit, speedy; // will be set according window width
@@ -97,6 +97,14 @@ function registerEventHandler() {
       left.css('top', l);
       right.css('top', r);
   });
+
+  $('.chilong').click(function() {
+      abortGame();
+  });
+
+  $(document).keydown(function(eventData) {
+      if (eventData.key === 'Escape') abortGame();
+  })
 }
 
 /**** GAME HELPER ****/
@@ -147,9 +155,15 @@ function gameStart() {
 }
 
 function endGame() {
-  //jss.set('.chilong', {display: 'None'});
-  setTimeout("$('#scoreboard').hide()", 5000);
+  // jss.set('.chilong', {display: 'None'});
+  $('.chilong > *:not(.rift)').hide();
+  setTimeout("$('.chilong').remove()", 5000);
   clearInterval(gameTicker);
+}
+
+function abortGame() {
+    $('.chilong').remove();
+    clearInterval(gameTicker);
 }
 
 function gameTick() {
@@ -173,8 +187,8 @@ function riftHit() {
       // show solid orange on second stage
       $(rift.find('.spinner')[9-riftCounter]).addClass('activated');
   } else {
-      console.log('do something');
       $(rift.find('.spinner')).hide();
+      endGame();
   }
   riftCountNextHit = false;
 }

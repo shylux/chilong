@@ -14,7 +14,6 @@
   }
 
   .rift {
-    // display: none;
     position: absolute;
     width: 20%; /* will be replace by height */
     height: 20%;
@@ -43,7 +42,7 @@
     }
 
     div {
-      //display: none;
+      display: none;
 
       &:nth-child(1) {
         @include spinner-border(16px, 0px, 2s, normal);

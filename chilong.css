@@ -73,6 +73,9 @@
 .chilong .rift #scoreboard #score {
   float: right;
 }
+.chilong .rift div {
+  display: none;
+}
 .chilong .rift div:nth-child(1) {
   content: "";
   position: absolute;
