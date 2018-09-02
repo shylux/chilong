@@ -8,7 +8,6 @@ let speedx, speedx_limit, speedy; // will be set according window width
 let speedx_accel = 1.2;
 let max_bounce_angle = 6; // max bounce angle (shift on y speed)
 
-
 /**** USEFUL FUNCTIONS ****/
 function escapeRegExp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -46,7 +45,6 @@ let head_html = `
 `;
 let body_html = `
 <div class="chilong pane">
-  <div id="ball"></div>
   <div id="left" class="vbar"></div>
   <div id="right" class="vbar"></div>
   <img id="portal" class="powerup" src="$path/res/portal2.gif" alt="Portal Powerup">
@@ -63,6 +61,7 @@ let body_html = `
         <span id="score">0</span>
     </div>
   </div>
+  <div id="ball"></div>
 </div>
 `;
 $('head').prepend(replaceAll(head_html, '$path', getScriptPath()));
@@ -183,6 +182,7 @@ function addScore(addAmount) {
 let riftCounter = -1, riftCountNextHit = true;
 function riftHit() {
   if (!riftCountNextHit) return;
+  addScore(50);
   riftCounter++;
   if (riftCounter < 5) {
       // show blue spinner on first stage
@@ -212,8 +212,6 @@ function placePowerup(obj) {
             return collide(other, obj);
         }))) break;
     }
-
-	obj.show();
 }
 
 
@@ -229,6 +227,14 @@ function pongTick() {
   }
   if (collide(ball, portal)) activatePortal();
   if (collide(ball, rift)) riftHit();
+  if (collide(ball, minus)) {
+      changeBarSize(-5);
+      placePowerup(minus);
+  }
+  if (collide(ball, plus)) {
+      changeBarSize(5);
+      placePowerup(plus);
+  }
   // update ball
   pball = bounds(ball);
   // check if out
@@ -283,4 +289,12 @@ function deactivatePortal() {
 	portalState = false;
 	gameobj.removeClass('portal_active');
 	placePowerup(portal);
+}
+
+let bar_size = 15; // percent of height
+function changeBarSize(percent_change) {
+    addScore(30);
+    bar_size += percent_change;
+    bar_size = Math.min(Math.max(bar_size, 0), 100);
+    $('.vbar').css('height', bar_size+'%');
 }
