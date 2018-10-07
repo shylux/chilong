@@ -130,7 +130,7 @@ function collide(obj1, obj2) {
 /**** OVERALL GAME CODE ****/
 function gameStart() {
   if (checkMobile()) {
-    endGame();
+    abortGame();
     return;
   }
 
